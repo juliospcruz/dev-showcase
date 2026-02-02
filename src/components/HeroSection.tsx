@@ -33,7 +33,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-4"
           >
-            <span className="text-gradient">John Developer</span>
+            <span className="text-gradient">Júlio Dev</span>
           </motion.h1>
 
           {/* Title */}
@@ -88,9 +88,9 @@ export function HeroSection() {
             className="flex items-center justify-center gap-6"
           >
             {[
-              { icon: Github, href: "https://github.com", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+              { icon: Github, href: "https://github.com/juliospcruz", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-cruz-1436a4294/", label: "LinkedIn" },
+              { icon: Mail, href: "mailto:juliospcruz@gmail.com", label: "Email" },
             ].map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={label}

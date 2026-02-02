@@ -71,7 +71,7 @@ const translations: Record<Language, Record<string, string>> = {
     "contact.connect": "Connect",
     "contact.subtitle": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
     "contact.location": "Location",
-    "contact.locationValue": "San Francisco, CA (Remote)",
+    "contact.locationValue": "São Paulo, SP (Remote)",
     "contact.emailLabel": "Email",
     "contact.ctaTitle": "Ready to Start a Project?",
     "contact.ctaDescription": "Whether you have a project in mind or just want to chat, feel free to reach out. I'll get back to you as soon as possible.",
@@ -79,7 +79,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Footer
     "footer.madeWith": "Made with",
-    "footer.by": "by John Developer",
+    "footer.by": "by Júlio Developer",
   },
   pt: {
     // Navbar
@@ -151,7 +151,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Footer
     "footer.madeWith": "Feito com",
-    "footer.by": "por John Developer",
+    "footer.by": "por Júlio Developer",
   },
 };
 

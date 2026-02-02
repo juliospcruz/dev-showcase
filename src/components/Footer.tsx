@@ -3,9 +3,9 @@ import { Github, Linkedin, Mail, Heart } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+  { icon: Github, href: "https://github.com/juliospcruz", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-cruz-1436a4294/", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:juliospcruz@gmail.com", label: "Email" },
 ];
 
 export function Footer() {

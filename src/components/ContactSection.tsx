@@ -15,20 +15,20 @@ export function ContactSection() {
     {
       icon: Mail,
       label: t("contact.emailLabel"),
-      value: "hello@johndeveloper.com",
-      href: "mailto:hello@johndeveloper.com",
+      value: "juliospcruz@gmail.com",
+      href: "mailto:juliospcruz@gmail.com",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "linkedin.com/in/johndeveloper",
-      href: "https://linkedin.com/in/johndeveloper",
+      value: "https://www.linkedin.com/in/juliospcruz",
+      href: "https://www.linkedin.com/in/j%C3%BAlio-c%C3%A9sar-cruz-1436a4294/",
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "github.com/johndeveloper",
-      href: "https://github.com/johndeveloper",
+      value: "https://github.com/juliospcruz",
+      href: "https://github.com/juliospcruz",
     },
   ];
 
@@ -116,7 +116,7 @@ export function ContactSection() {
                 className="w-full bg-primary hover:bg-primary-hover text-primary-foreground font-semibold py-6 shadow-glow transition-all duration-300"
                 asChild
               >
-                <a href="mailto:hello@johndeveloper.com">
+                <a href="mailto:juliospcruz@gmail.com">
                   <Mail className="mr-2 h-5 w-5" />
                   {t("contact.sendEmail")}
                 </a>
