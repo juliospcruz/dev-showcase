@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
@@ -8,6 +9,7 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -44,9 +46,9 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-foreground-secondary flex items-center gap-1">
-            © {currentYear} Made with 
+            © {currentYear} {t("footer.madeWith")} 
             <Heart className="h-4 w-4 text-primary inline-block" /> 
-            by John Developer
+            {t("footer.by")}
           </p>
         </div>
       </div>
