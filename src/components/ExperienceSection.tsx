@@ -2,19 +2,20 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Calendar, Briefcase, Code, Users } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 interface Stat {
   icon: typeof Calendar;
   value: number;
   suffix: string;
-  label: string;
+  labelKey: string;
 }
 
 const stats: Stat[] = [
-  { icon: Calendar, value: 5, suffix: "+", label: "Years of Experience" },
-  { icon: Briefcase, value: 50, suffix: "+", label: "Completed Projects" },
-  { icon: Code, value: 15, suffix: "+", label: "Technologies" },
-  { icon: Users, value: 30, suffix: "+", label: "Satisfied Clients" },
+  { icon: Calendar, value: 5, suffix: "+", labelKey: "exp.years" },
+  { icon: Briefcase, value: 50, suffix: "+", labelKey: "exp.projects" },
+  { icon: Code, value: 15, suffix: "+", labelKey: "exp.technologies" },
+  { icon: Users, value: 30, suffix: "+", labelKey: "exp.clients" },
 ];
 
 function AnimatedCounter({ 
@@ -64,6 +65,7 @@ export function ExperienceSection() {
     triggerOnce: true,
     threshold: 0.2,
   });
+  const { t } = useLanguage();
 
   return (
     <section id="experience" className="section-padding bg-background" ref={ref}>
@@ -75,18 +77,18 @@ export function ExperienceSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-            Experience & <span className="text-gradient">Impact</span>
+            {t("exp.title")} & <span className="text-gradient">{t("exp.impact")}</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
           <p className="text-foreground-secondary max-w-2xl mx-auto">
-            Numbers that represent my journey and the value I've delivered.
+            {t("exp.subtitle")}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
-              key={stat.label}
+              key={stat.labelKey}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
@@ -107,7 +109,7 @@ export function ExperienceSection() {
               
               {/* Label */}
               <p className="relative text-sm md:text-base text-foreground-secondary font-medium">
-                {stat.label}
+                {t(stat.labelKey)}
               </p>
             </motion.div>
           ))}

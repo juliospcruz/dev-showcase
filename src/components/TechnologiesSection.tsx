@@ -19,6 +19,7 @@ import {
   SiFigma,
 } from "react-icons/si";
 import { DiHtml5, DiCss3 } from "react-icons/di";
+import { useLanguage } from "./LanguageProvider";
 
 const technologies = [
   { name: "React", icon: SiReact, color: "#61DAFB" },
@@ -46,6 +47,7 @@ export function TechnologiesSection() {
     triggerOnce: true,
     threshold: 0.1,
   });
+  const { t } = useLanguage();
 
   return (
     <section id="technologies" className="section-padding bg-background-secondary" ref={ref}>
@@ -57,11 +59,11 @@ export function TechnologiesSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-            Technologies & <span className="text-gradient">Tools</span>
+            {t("tech.title")} & <span className="text-gradient">{t("tech.tools")}</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
           <p className="text-foreground-secondary max-w-2xl mx-auto">
-            A collection of technologies I use to build modern, scalable applications.
+            {t("tech.subtitle")}
           </p>
         </motion.div>
 

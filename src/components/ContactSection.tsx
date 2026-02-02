@@ -2,33 +2,35 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Mail, Linkedin, Github, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "hello@johndeveloper.com",
-    href: "mailto:hello@johndeveloper.com",
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    value: "linkedin.com/in/johndeveloper",
-    href: "https://linkedin.com/in/johndeveloper",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    value: "github.com/johndeveloper",
-    href: "https://github.com/johndeveloper",
-  },
-];
+import { useLanguage } from "./LanguageProvider";
 
 export function ContactSection() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  const { t } = useLanguage();
+
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: t("contact.emailLabel"),
+      value: "hello@johndeveloper.com",
+      href: "mailto:hello@johndeveloper.com",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      value: "linkedin.com/in/johndeveloper",
+      href: "https://linkedin.com/in/johndeveloper",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      value: "github.com/johndeveloper",
+      href: "https://github.com/johndeveloper",
+    },
+  ];
 
   return (
     <section id="contact" className="section-padding bg-background-secondary" ref={ref}>
@@ -40,12 +42,11 @@ export function ContactSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-            Let's <span className="text-gradient">Connect</span>
+            {t("contact.lets")} <span className="text-gradient">{t("contact.connect")}</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
           <p className="text-foreground-secondary max-w-2xl mx-auto text-lg">
-            I'm always open to discussing new projects, creative ideas, or 
-            opportunities to be part of your vision.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -64,8 +65,8 @@ export function ContactSection() {
                   <MapPin className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm text-foreground-secondary">Location</p>
-                  <p className="font-medium">San Francisco, CA (Remote)</p>
+                  <p className="text-sm text-foreground-secondary">{t("contact.location")}</p>
+                  <p className="font-medium">{t("contact.locationValue")}</p>
                 </div>
               </div>
 
@@ -105,11 +106,10 @@ export function ContactSection() {
                 <Send className="h-7 w-7 text-primary" />
               </div>
               <h3 className="text-2xl font-heading font-bold mb-4">
-                Ready to Start a Project?
+                {t("contact.ctaTitle")}
               </h3>
               <p className="text-foreground-secondary mb-8">
-                Whether you have a project in mind or just want to chat, 
-                feel free to reach out. I'll get back to you as soon as possible.
+                {t("contact.ctaDescription")}
               </p>
               <Button
                 size="lg"
@@ -118,7 +118,7 @@ export function ContactSection() {
               >
                 <a href="mailto:hello@johndeveloper.com">
                   <Mail className="mr-2 h-5 w-5" />
-                  Send Me an Email
+                  {t("contact.sendEmail")}
                 </a>
               </Button>
             </motion.div>

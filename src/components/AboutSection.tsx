@@ -1,35 +1,37 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Code2, Rocket, Users, Zap } from "lucide-react";
-
-const highlights = [
-  {
-    icon: Code2,
-    title: "Clean Code",
-    description: "Writing maintainable, scalable, and well-documented code",
-  },
-  {
-    icon: Rocket,
-    title: "Performance",
-    description: "Optimizing for speed and exceptional user experience",
-  },
-  {
-    icon: Users,
-    title: "Collaboration",
-    description: "Working effectively with teams across the globe",
-  },
-  {
-    icon: Zap,
-    title: "Innovation",
-    description: "Staying current with the latest technologies",
-  },
-];
+import { useLanguage } from "./LanguageProvider";
 
 export function AboutSection() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  const { t } = useLanguage();
+
+  const highlights = [
+    {
+      icon: Code2,
+      title: t("about.highlight1.title"),
+      description: t("about.highlight1.desc"),
+    },
+    {
+      icon: Rocket,
+      title: t("about.highlight2.title"),
+      description: t("about.highlight2.desc"),
+    },
+    {
+      icon: Users,
+      title: t("about.highlight3.title"),
+      description: t("about.highlight3.desc"),
+    },
+    {
+      icon: Zap,
+      title: t("about.highlight4.title"),
+      description: t("about.highlight4.desc"),
+    },
+  ];
 
   return (
     <section id="about" className="section-padding bg-background-secondary" ref={ref}>
@@ -41,7 +43,7 @@ export function AboutSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-            About <span className="text-gradient">Me</span>
+            {t("about.title")} <span className="text-gradient">{t("about.titleHighlight")}</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
         </motion.div>
@@ -55,20 +57,13 @@ export function AboutSection() {
             className="space-y-6"
           >
             <p className="text-lg text-foreground-secondary leading-relaxed">
-              I'm a passionate Full Stack Developer with over 5 years of experience 
-              building web applications that make a difference. My journey started 
-              with curiosity about how websites work, and it evolved into a career 
-              focused on creating elegant solutions to complex problems.
+              {t("about.bio1")}
             </p>
             <p className="text-lg text-foreground-secondary leading-relaxed">
-              I specialize in JavaScript ecosystems, particularly React and Node.js, 
-              but I'm always exploring new technologies. I believe in writing clean, 
-              efficient code and delivering products that users love.
+              {t("about.bio2")}
             </p>
             <p className="text-lg text-foreground-secondary leading-relaxed">
-              When I'm not coding, you'll find me contributing to open-source projects, 
-              writing technical articles, or mentoring aspiring developers. I'm driven 
-              by the impact technology can have on people's lives.
+              {t("about.bio3")}
             </p>
           </motion.div>
 
@@ -76,7 +71,7 @@ export function AboutSection() {
           <div className="grid sm:grid-cols-2 gap-6">
             {highlights.map((item, index) => (
               <motion.div
-                key={item.title}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}

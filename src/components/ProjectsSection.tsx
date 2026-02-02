@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink, Github, Star, GitFork, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "./LanguageProvider";
 
 interface Repository {
   id: number;
@@ -26,6 +27,7 @@ export function ProjectsSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
+  const { t } = useLanguage();
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -68,14 +70,14 @@ export function ProjectsSection() {
     repos.forEach((repo) => {
       if (repo.language) langSet.add(repo.language);
     });
-    return ["All", ...Array.from(langSet).sort()];
-  }, [repos]);
+    return [t("projects.all"), ...Array.from(langSet).sort()];
+  }, [repos, t]);
 
   // Filter repos by selected language
   const filteredRepos = useMemo(() => {
-    if (activeFilter === "All") return repos;
+    if (activeFilter === t("projects.all")) return repos;
     return repos.filter((repo) => repo.language === activeFilter);
-  }, [repos, activeFilter]);
+  }, [repos, activeFilter, t]);
 
   const getLanguageColor = (language: string): string => {
     const colors: Record<string, string> = {
@@ -105,12 +107,11 @@ export function ProjectsSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-            Featured <span className="text-gradient">Projects</span>
+            {t("projects.featured")} <span className="text-gradient">{t("projects.title")}</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
           <p className="text-foreground-secondary max-w-2xl mx-auto">
-            Explore my latest work. These projects are automatically synced from 
-            my GitHub profile.
+            {t("projects.subtitle")}
           </p>
         </motion.div>
 
@@ -144,16 +145,16 @@ export function ProjectsSection() {
         {loading && (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-3 text-foreground-secondary">Loading projects...</span>
+            <span className="ml-3 text-foreground-secondary">{t("projects.loading")}</span>
           </div>
         )}
 
         {/* Error State */}
         {error && (
           <div className="text-center py-20">
-            <p className="text-destructive mb-4">{error}</p>
+            <p className="text-destructive mb-4">{t("projects.error")}</p>
             <p className="text-foreground-secondary">
-              Please check the GitHub username or try again later.
+              {t("projects.errorHint")}
             </p>
           </div>
         )}
@@ -195,7 +196,7 @@ export function ProjectsSection() {
 
                 {/* Description */}
                 <p className="text-foreground-secondary text-sm line-clamp-3 flex-1 mb-4">
-                  {repo.description}
+                  {repo.description || t("projects.noDescription")}
                 </p>
 
                 {/* Topics */}
@@ -230,7 +231,7 @@ export function ProjectsSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 hover:bg-muted rounded-lg transition-colors"
-                      aria-label={`View ${repo.name} on GitHub`}
+                      aria-label={`${t("projects.viewCode")} ${repo.name}`}
                     >
                       <Github className="h-4 w-4" />
                     </a>
@@ -240,7 +241,7 @@ export function ProjectsSection() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 hover:bg-muted rounded-lg transition-colors"
-                        aria-label={`View ${repo.name} live demo`}
+                        aria-label={`${t("projects.liveDemo")} ${repo.name}`}
                       >
                         <ExternalLink className="h-4 w-4" />
                       </a>
@@ -271,7 +272,7 @@ export function ProjectsSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View All on GitHub
+                {t("projects.viewAll")}
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
