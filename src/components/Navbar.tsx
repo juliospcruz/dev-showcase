@@ -65,14 +65,14 @@ export function Navbar() {
             {/* Language Toggle */}
             <Button
               variant="ghost"
-              size="icon"
+              size="sm"
               onClick={toggleLanguage}
-              className="relative"
+              className="flex items-center gap-1.5 px-3"
               title={language === "en" ? "Mudar para Português" : "Switch to English"}
             >
-              <Globe className="h-5 w-5 text-primary" />
-              <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-primary text-primary-foreground rounded px-1">
-                {language.toUpperCase()}
+              <Globe className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary">
+                {language === "en" ? "PT" : "EN"}
               </span>
             </Button>
             
@@ -113,13 +113,13 @@ export function Navbar() {
           <div className="flex md:hidden items-center gap-2">
             <Button
               variant="ghost"
-              size="icon"
+              size="sm"
               onClick={toggleLanguage}
-              className="relative"
+              className="flex items-center gap-1 px-2"
             >
-              <Globe className="h-5 w-5 text-primary" />
-              <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-primary text-primary-foreground rounded px-1">
-                {language.toUpperCase()}
+              <Globe className="h-4 w-4 text-primary" />
+              <span className="text-xs font-medium text-primary">
+                {language === "en" ? "PT" : "EN"}
               </span>
             </Button>
             <Button
