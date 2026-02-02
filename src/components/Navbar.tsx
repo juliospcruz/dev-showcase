@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Globe } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 import { Button } from "@/components/ui/button";
-
-const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Technologies", href: "#technologies" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
-];
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.projects"), href: "#projects" },
+    { name: t("nav.technologies"), href: "#technologies" },
+    { name: t("nav.experience"), href: "#experience" },
+    { name: t("nav.contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +52,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <motion.a
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className="text-sm font-medium text-foreground-secondary hover:text-primary transition-colors duration-200"
                 whileHover={{ y: -2 }}
@@ -59,6 +61,20 @@ export function Navbar() {
                 {link.name}
               </motion.a>
             ))}
+            
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLanguage}
+              className="relative"
+              title={language === "en" ? "Mudar para Português" : "Switch to English"}
+            >
+              <Globe className="h-5 w-5 text-primary" />
+              <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-primary text-primary-foreground rounded px-1">
+                {language.toUpperCase()}
+              </span>
+            </Button>
             
             {/* Theme Toggle */}
             <Button
@@ -98,6 +114,17 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
+              onClick={toggleLanguage}
+              className="relative"
+            >
+              <Globe className="h-5 w-5 text-primary" />
+              <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-primary text-primary-foreground rounded px-1">
+                {language.toUpperCase()}
+              </span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={toggleTheme}
             >
               {theme === "dark" ? (
@@ -134,7 +161,7 @@ export function Navbar() {
             <div className="container-custom py-4 flex flex-col gap-4">
               {navLinks.map((link, index) => (
                 <motion.a
-                  key={link.name}
+                  key={link.href}
                   href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

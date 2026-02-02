@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "./LanguageProvider";
 
 export function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-hero">
       {/* Background decoration */}
@@ -11,7 +14,7 @@ export function HeroSection() {
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-custom relative z-10 pt-20">
+      <div className="container-custom relative z-10 pt-20 pb-24">
         <div className="max-w-4xl mx-auto text-center">
           {/* Greeting */}
           <motion.p
@@ -20,7 +23,7 @@ export function HeroSection() {
             transition={{ duration: 0.5 }}
             className="text-primary font-medium mb-4 text-lg"
           >
-            Hello, I'm
+            {t("hero.greeting")}
           </motion.p>
 
           {/* Name */}
@@ -40,7 +43,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-2xl sm:text-3xl md:text-4xl font-heading font-semibold text-foreground mb-6"
           >
-            Full Stack Developer
+            {t("hero.title")}
           </motion.h2>
 
           {/* Description */}
@@ -50,8 +53,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-foreground-secondary text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            I build exceptional digital experiences that combine clean code with 
-            stunning design. Specialized in React, Node.js, and modern web technologies.
+            {t("hero.description")}
           </motion.p>
 
           {/* CTAs */}
@@ -66,7 +68,7 @@ export function HeroSection() {
               className="bg-primary hover:bg-primary-hover text-primary-foreground font-semibold px-8 py-6 text-lg shadow-glow transition-all duration-300 hover:shadow-lg"
               asChild
             >
-              <a href="#projects">View Projects</a>
+              <a href="#projects">{t("hero.viewProjects")}</a>
             </Button>
             <Button
               variant="outline"
@@ -74,7 +76,7 @@ export function HeroSection() {
               className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-8 py-6 text-lg transition-all duration-300"
               asChild
             >
-              <a href="#contact">Contact Me</a>
+              <a href="#contact">{t("hero.contactMe")}</a>
             </Button>
           </motion.div>
 
@@ -106,7 +108,7 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - moved further down */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 10, 0] }}
@@ -114,7 +116,7 @@ export function HeroSection() {
             opacity: { duration: 0.5, delay: 0.8 },
             y: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2"
         >
           <a href="#about" aria-label="Scroll to about section">
             <ArrowDown className="h-6 w-6 text-foreground-secondary" />
