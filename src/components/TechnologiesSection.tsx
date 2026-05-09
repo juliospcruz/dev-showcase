@@ -15,7 +15,7 @@ import {
   SiTailwindcss,
   SiNextdotjs,
   SiVuedotjs,
-  SiAmazon,
+  SiAmazonwebservices,
   SiAngular,
 } from "react-icons/si";
 import { DiHtml5, DiCss3 } from "react-icons/di";
