@@ -337,14 +337,14 @@ function ProjectCard({ repo, index, getLanguageColor, t }: ProjectCardProps) {
 
         <button
           onClick={prev}
-          aria-label="Previous image"
+          aria-label={t("projects.prevImage")}
           className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/70 backdrop-blur hover:bg-background transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
         <button
           onClick={next}
-          aria-label="Next image"
+          aria-label={t("projects.nextImage")}
           className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/70 backdrop-blur hover:bg-background transition-colors"
         >
           <ChevronRight className="h-4 w-4" />
@@ -355,7 +355,7 @@ function ProjectCard({ repo, index, getLanguageColor, t }: ProjectCardProps) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              aria-label={`Go to image ${i + 1}`}
+              aria-label={`${t("projects.goToImage")} ${i + 1}`}
               className={`h-1.5 rounded-full transition-all ${
                 i === current ? "w-5 bg-primary" : "w-1.5 bg-background/70"
               }`}
