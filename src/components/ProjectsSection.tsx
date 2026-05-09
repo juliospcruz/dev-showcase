@@ -168,13 +168,13 @@ export function ProjectsSection() {
   const languages = useMemo(() => {
     const langSet = new Set<string>();
     repos.forEach((repo) => repo.languages.forEach((l) => langSet.add(l)));
-    return [t("projects.all"), ...Array.from(langSet).sort()];
-  }, [repos, t]);
+    return [ALL_FILTER, ...Array.from(langSet).sort()];
+  }, [repos]);
 
   const filteredRepos = useMemo(() => {
-    if (activeFilter === t("projects.all")) return repos;
+    if (activeFilter === ALL_FILTER) return repos;
     return repos.filter((repo) => repo.languages.includes(activeFilter));
-  }, [repos, activeFilter, t]);
+  }, [repos, activeFilter]);
 
   const getLanguageColor = (language: string): string => {
     const colors: Record<string, string> = {
