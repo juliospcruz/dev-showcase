@@ -8,6 +8,8 @@ import { useLanguage } from "./LanguageProvider";
 interface Repository {
   id: number;
   name: string;
+  full_name: string;
+  default_branch: string;
   description: string | null;
   html_url: string;
   homepage: string | null;
@@ -90,9 +92,55 @@ export function ProjectsSection() {
 
             const stars = Math.floor(seededRandom(repo.id) * 480) + 20;
             const branches = Math.floor(seededRandom(repo.id + 1) * 18) + 2;
-            const images = Array.from({ length: 5 }, (_, i) =>
-              `https://picsum.photos/seed/${repo.id}-${i}/800/450`
-            );
+
+            // Real images: GitHub OG card + images parsed from the repo README
+            const ogImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
+            const images: string[] = [ogImage];
+
+            try {
+              const readmeRes = await fetch(
+                `https://api.github.com/repos/${repo.full_name}/readme`,
+                { headers: { Accept: "application/vnd.github.raw" } }
+              );
+              if (readmeRes.ok) {
+                const md = await readmeRes.text();
+                const found = new Set<string>();
+
+                const resolveUrl = (url: string): string | null => {
+                  const trimmed = url.trim().replace(/^["'<]|["'>]$/g, "");
+                  if (!trimmed) return null;
+                  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+                  if (trimmed.startsWith("//")) return `https:${trimmed}`;
+                  const clean = trimmed.replace(/^\.?\/+/, "");
+                  return `https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch || "main"}/${clean}`;
+                };
+
+                const isImage = (url: string) =>
+                  /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(url);
+
+                // Markdown ![](url)
+                const mdRe = /!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+                let m: RegExpExecArray | null;
+                while ((m = mdRe.exec(md)) !== null) {
+                  const u = resolveUrl(m[1]);
+                  if (u && isImage(u)) found.add(u);
+                }
+
+                // HTML <img src="...">
+                const htmlRe = /<img[^>]+src=["']([^"']+)["']/gi;
+                while ((m = htmlRe.exec(md)) !== null) {
+                  const u = resolveUrl(m[1]);
+                  if (u && isImage(u)) found.add(u);
+                }
+
+                for (const u of found) {
+                  if (images.length >= 5) break;
+                  if (!images.includes(u)) images.push(u);
+                }
+              }
+            } catch {
+              // ignore — keep OG image as the only entry
+            }
 
             return {
               ...repo,
@@ -289,14 +337,14 @@ function ProjectCard({ repo, index, getLanguageColor, t }: ProjectCardProps) {
 
         <button
           onClick={prev}
-          aria-label="Previous image"
+          aria-label={t("projects.prevImage")}
           className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/70 backdrop-blur hover:bg-background transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
         <button
           onClick={next}
-          aria-label="Next image"
+          aria-label={t("projects.nextImage")}
           className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/70 backdrop-blur hover:bg-background transition-colors"
         >
           <ChevronRight className="h-4 w-4" />
@@ -307,7 +355,7 @@ function ProjectCard({ repo, index, getLanguageColor, t }: ProjectCardProps) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              aria-label={`Go to image ${i + 1}`}
+              aria-label={`${t("projects.goToImage")} ${i + 1}`}
               className={`h-1.5 rounded-full transition-all ${
                 i === current ? "w-5 bg-primary" : "w-1.5 bg-background/70"
               }`}
