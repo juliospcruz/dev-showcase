@@ -52,7 +52,8 @@ export function ProjectsSection() {
   const [repos, setRepos] = useState<EnrichedRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const ALL_FILTER = "__all__";
+  const [activeFilter, setActiveFilter] = useState<string>(ALL_FILTER);
   const { t } = useLanguage();
 
   const { ref, inView } = useInView({
