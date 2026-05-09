@@ -52,7 +52,8 @@ export function ProjectsSection() {
   const [repos, setRepos] = useState<EnrichedRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const ALL_FILTER = "__all__";
+  const [activeFilter, setActiveFilter] = useState<string>(ALL_FILTER);
   const { t } = useLanguage();
 
   const { ref, inView } = useInView({
@@ -167,13 +168,13 @@ export function ProjectsSection() {
   const languages = useMemo(() => {
     const langSet = new Set<string>();
     repos.forEach((repo) => repo.languages.forEach((l) => langSet.add(l)));
-    return [t("projects.all"), ...Array.from(langSet).sort()];
-  }, [repos, t]);
+    return [ALL_FILTER, ...Array.from(langSet).sort()];
+  }, [repos]);
 
   const filteredRepos = useMemo(() => {
-    if (activeFilter === t("projects.all")) return repos;
+    if (activeFilter === ALL_FILTER) return repos;
     return repos.filter((repo) => repo.languages.includes(activeFilter));
-  }, [repos, activeFilter, t]);
+  }, [repos, activeFilter]);
 
   const getLanguageColor = (language: string): string => {
     const colors: Record<string, string> = {
@@ -228,7 +229,7 @@ export function ProjectsSection() {
                     : "hover:border-primary hover:text-primary"
                 }`}
               >
-                {lang}
+                {lang === ALL_FILTER ? t("projects.all") : lang}
               </Button>
             ))}
           </motion.div>
