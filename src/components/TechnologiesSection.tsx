@@ -15,10 +15,10 @@ import {
   SiTailwindcss,
   SiNextdotjs,
   SiVuedotjs,
-  SiAmazonwebservices,
   SiAngular,
 } from "react-icons/si";
 import { DiHtml5, DiCss3 } from "react-icons/di";
+import { FaAws } from "react-icons/fa";
 import { useLanguage } from "./LanguageProvider";
 
 const technologies = [
@@ -38,7 +38,7 @@ const technologies = [
   { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
   { name: "Docker", icon: SiDocker, color: "#2496ED" },
   { name: "Git", icon: SiGit, color: "#F05032" },
-  { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
+  { name: "AWS", icon: FaAws, color: "#FF9900" },
   { name: "Angular", icon: SiAngular, color: "#F24E1E" },
 ];
 
