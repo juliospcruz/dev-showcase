@@ -126,6 +126,9 @@ const translations: Record<Language, Record<string, string>> = {
     "projects.viewCode": "Ver Código",
     "projects.liveDemo": "Demo ao Vivo",
     "projects.viewAll": "Ver Todos no GitHub",
+    "projects.prevImage": "Imagem anterior",
+    "projects.nextImage": "Próxima imagem",
+    "projects.goToImage": "Ir para imagem",
     
     // Technologies
     "tech.title": "Tecnologias",
