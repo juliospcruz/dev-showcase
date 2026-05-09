@@ -229,7 +229,7 @@ export function ProjectsSection() {
                     : "hover:border-primary hover:text-primary"
                 }`}
               >
-                {lang}
+                {lang === ALL_FILTER ? t("projects.all") : lang}
               </Button>
             ))}
           </motion.div>
