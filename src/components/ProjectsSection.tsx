@@ -8,6 +8,8 @@ import { useLanguage } from "./LanguageProvider";
 interface Repository {
   id: number;
   name: string;
+  full_name: string;
+  default_branch: string;
   description: string | null;
   html_url: string;
   homepage: string | null;
